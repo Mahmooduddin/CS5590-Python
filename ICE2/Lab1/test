@@ -1,0 +1,44 @@
+#lab1-task1
+#freq={}
+#file=open('textfile.txt','r')
+#string=file.readline()
+#for i in string.split(" "):
+#    count=freq.get(i,0)
+#    freq[i]=count+1
+#freq_list=freq.keys()
+#for i in freq_list:
+#   print (i,freq[i])
+
+#my_list=[]
+#file=open('textfile.txt','r')
+#string=file.readline()
+#for i in string.split(" "):
+ #   t=(len(i),i)
+  #  my_list.append(t)
+   # print(my_list)
+#my_list.sort()
+#print(my_list)
+
+
+#task-2
+#string = str(input('Enter a string:'))
+#string=string.replace(' ','')
+#if set(string) >= set('abcdefghijklmnopqurstuvwxyz'):
+#  print('String contains all letters of alphabet.')
+#else:
+ # print('String does not contains all letters of alphabet.')
+
+ #task-3
+#list=[]
+#for i in range(700,1700):
+#   if (i%5==0) and (i%2==0):
+#     list.append(str(i))
+#print(','.join(list))
+
+#ICE-2
+heightinp=int(input("enter height of game board:"))
+widthinp=int(input("enter width of game board:"))
+for i in range(heightinp):
+   print("---"*widthinp)
+   print("|  "*(heightinp+1))
+print("---"*widthinp)
