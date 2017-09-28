@@ -1,0 +1,9 @@
+input= [{'course' : 'python', 'LastGPA' : 90,'CurrentGPA' : 80},
+        {'course' : 'python', 'LastGPA' : 95, 'CurrentGPA' : 85},
+        {'course' : 'python', 'LastGPA' : 100, 'CurrentGPA' : 100}]
+output = input
+for d in output :
+        n1 = d.pop('LastGPA')
+        n2 = d.pop('CurrentGPA')
+        d['LastGPA+CurrentGPA'] = (n1 + n2)/2
+print((output))
