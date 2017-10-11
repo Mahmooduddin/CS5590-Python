@@ -1,0 +1,139 @@
+Task1:
+
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn import datasets, linear_model
+from sklearn.metrics import mean_squared_error, r2_score
+
+breast_cancer = datasets.load_breast_cancer()
+
+breast_cancer_X = breast_cancer.data[:, np.newaxis, 3]
+# Spliting data
+breast_cancer_X_train = breast_cancer_X[:-50]
+breast_cancer_X_test = breast_cancer_X[-50:]
+
+breast_cancer_y_train = breast_cancer.target[:-50]
+breast_cancer_y_test = breast_cancer.target[-50:]
+
+model = linear_model.LinearRegression()
+
+# Training model
+model.fit(breast_cancer_X_train, breast_cancer_y_train)
+
+# make Predictions
+breast_cancer_y_pred = model.predict(breast_cancer_X_test)
+
+plt.scatter(breast_cancer_X_test, breast_cancer_y_test,  color='red')
+plt.plot(breast_cancer_X_test, breast_cancer_y_pred, color='yellow', linewidth=5)
+
+plt.title('Breast Cancer')
+plt.ylabel('Tumor Size')
+plt.xlabel('Age')
+
+plt.xticks(())
+plt.yticks(())
+
+plt.show()
+
+Task2:
+import csv
+import numpy as np
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+
+CustomerID = []
+Age = []
+Annual_Income = []
+Spending_Score = []
+
+def get_data(filename):
+   with open(filename, 'r') as csvfile:
+       csvFileReader = csv.reader(csvfile)
+       next(csvFileReader)  # skipping column names
+       for row in csvFileReader:
+           CustomerID.append(int(row[0]))
+           Age.append(int(row[2]))
+           Annual_Income.append(float(row[3]))
+           Spending_Score.append(float(row[4]))
+   return
+
+get_data('Customers.csv')  #csv file
+
+X = np.array([[CustomerID,Age,Annual_Income,Spending_Score]])
+X = np.reshape(X, (len(X.T), 4))
+print(X)
+kmeans=KMeans(n_clusters=5, random_state=0).fit(X)
+print(kmeans.labels_)
+print(kmeans.algorithm)
+print(kmeans.cluster_centers_)
+plt.scatter(X[:, 0], X[:, 1],X[:, 2],X[:, 3])
+plt.show()
+
+
+Task3:
+from sklearn import svm, datasets,metrics
+from sklearn.cross_validation import train_test_split
+from sklearn.datasets import load_digits
+
+digitsdatasets=datasets.load_digits()
+x=digitsdatasets.data
+y=digitsdatasets.target
+#split the data for training and testing (20% testing size)
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2)
+C = 1.0  # SVM regularization parameter
+model =svm.SVC(kernel='linear', C=C)
+model.fit(x_train,y_train)
+y_pred=model.predict(x_test)
+print("For digits dataset the accuracy with SVC linear " + str(metrics.accuracy_score(y_test,y_pred)))
+model =svm.SVC(kernel='rbf')
+model.fit(x_train,y_train)
+y_pred=model.predict(x_test)
+print("For digits dataset the accuracy with SVC rbf " + str(metrics.accuracy_score(y_test,y_pred)))
+
+
+Task4:
+import nltk
+from nltk.tokenize import word_tokenize, wordpunct_tokenize, sent_tokenize
+from nltk.stem import WordNetLemmatizer
+from nltk.tag import pos_tag
+#open textfile
+text = open('textfile.txt', 'r')
+line = text.readline()
+
+#Lemmatization
+words = word_tokenize(line)
+lemmatize = []
+
+for i in words:
+   lemmatizer = WordNetLemmatizer()
+   lemmatized = lemmatizer.lemmatize(i.lower())
+   lemmatize.append(lemmatized)
+
+print "\nAfter lemmatization is applied:"
+print(lemmatize)
+
+# Using POS tagging to identify verbs
+sent = pos_tag(lemmatize)
+print "\nBefore removing verbs:"
+print sent
+sent=pos_tag(words)
+print "\nVerbs remomed:"
+print[s for s in sent if s[1] != 'VB'and 'VBD'and'VBG'and'VBN'and'VBP'and'VBZ'and'.'and','and'?'and'!']
+
+#determining top 5 repeated words
+fdist1 = nltk.FreqDist(lemmatize)
+common_words = fdist1.most_common(5)
+print "\nFirst five words that are repeated most:"
+print(fdist1.most_common(5))
+
+#finding Sentences with most repeated words
+sentences = sent_tokenize(line)
+most_repeated_sentences = []
+
+for i in sentences:
+ for j in word_tokenize(i):
+   for (k, l) in common_words:
+      if j == k:
+        most_repeated_sentences.append(i)  # Creating sentences containing the most common words
+print "\nSentences with most repeated words:"
+print(most_repeated_sentences)
